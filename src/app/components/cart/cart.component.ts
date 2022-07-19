@@ -1,7 +1,8 @@
-import { Product } from '../../data/products';
-import { CartService } from '../../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { Product } from './../../models/product.model';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,11 +19,12 @@ export class CartComponent implements OnInit {
   constructor(private svc: CartService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.items = this.svc.get();
+    this.items = this.svc.getItems();
   }
 
   submit(): void {
-    this.items = this.svc.clear();
+    this.svc.clear();
+    this.items = [];
     console.warn('Your order has been submitted', this.form.value);
     this.form.reset();
   }
